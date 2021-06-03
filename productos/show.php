@@ -93,17 +93,13 @@ if (isset($_GET["id"])) {
                             <td><?php echo $producto["precio"]; ?></td>
                         </tr>
                         <th>Estado:</th>
-                        <td>
-                            <?php if (!empty($productos) && $productos['activo'] == 1) : ?>
-                                Activo
-                            <?php else : ?>
-                                Inactivo
-                            <?php endif; ?>
-
-                            <?php if ($productos) : ?>
-                                | <a href="../productos/edit.php?id=<?php echo $productos['id'] ?>">Modificar</a>
-                            <?php endif; ?>
-                        </td>
+                            <td>
+                                <?php if (!empty($productos) && $productos['activo'] == 1) : ?>
+                                    Activo
+                                <?php else : ?>
+                                    Inactivo
+                                <?php endif; ?>
+                            </td>
                         </tr>
                         <tr>
                             <th>Marca:</th>

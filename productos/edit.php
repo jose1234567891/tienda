@@ -20,7 +20,7 @@ if (isset($_GET['id'])) {
 
     $id = (int) $_GET['id'];
 
-    $res = $mbd->prepare("SELECT p.id, p.sku, p.nombre, p.activo, p.precio, m.nombre as marca, pt.nombre as producto_tipo, p.created_at, p.updated_at FROM productos as p INNER JOIN marcas as m ON p.marca_id = m.id INNER JOIN producto_tipos as pt ON p.producto_tipo_id = pt.id WHERE p.id = ?");
+    $res = $mbd->prepare("SELECT p.id, p.sku, p.nombre, p.activo, p.precio, p.marca_id, m.nombre as marca, pt.nombre as producto_tipo, p.created_at, p.updated_at FROM productos as p INNER JOIN marcas as m ON p.marca_id = m.id INNER JOIN producto_tipos as pt ON p.producto_tipo_id = pt.id WHERE p.id = ?");
     $res->bindParam(1, $id);
     $res->execute();
     $productos = $res->fetch();
@@ -126,12 +126,12 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="form-group mb-3">
                             <label for="">Precio<span class="text-danger">*</span></label>
-                            <input type="precio" name="precio" value="<?php echo $productos["precio"]; ?>" class="form-control" placeholder="Ingrese el precio del producto">
+                            <input type="number" name="precio" value="<?php echo $productos["precio"]; ?>" class="form-control" placeholder="Ingrese el precio del producto">
                         </div>
                         <div class="form-group mb-3">
                             <label for="">Marcas <span class="text-danger">*</span></label>
                             <select name="marca" class="form-control">
-                                <option value="">Seleccione...</option>
+                                <option value="<?php echo $productos['marca_id'] ?>">Seleccione...</option>
 
                                 <?php foreach ($marcas as $marca) : ?>
                                     <option value="<?php echo $marca['id']; ?>">
@@ -143,7 +143,7 @@ if (isset($_GET['id'])) {
                         <div class="form-group mb-3">
                             <label for="">Producto tipos <span class="text-danger">*</span></label>
                             <select name="tipo" class="form-control">
-                                <option value="">Seleccione...</option>
+                                <option value="<?php echo $productos['producto_tipo_id'] ?>"><?php echo $productos['productos'] ?></option>
 
                                 <?php foreach ($producto_tipos as $tipo) : ?>
                                     <option value="<?php echo $tipo['id']; ?>">
