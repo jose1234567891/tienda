@@ -28,7 +28,7 @@ if (isset($_GET["id"])) {
     $producto = $res->fetch();
 
     //preguntar si la persona tiene un usuario
-    $res = $mbd->prepare("SELECT id, activo FROM productos_act WHERE id = ?");
+    $res = $mbd->prepare("SELECT id, activo FROM productos WHERE id = ?");
     $res->bindParam(1, $id);
     $res->execute();
 

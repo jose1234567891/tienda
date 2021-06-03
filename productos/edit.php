@@ -3,6 +3,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+session_start();
+
 require('../class/conexion.php');
 require('../class/rutas.php');
 
@@ -120,11 +122,11 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="form-group mb-3">
                             <label for="">Nombre<span class="text-danger">*</span></label>
-                            <input type="text" name="nombre" value="<?php echo $productos["nombre"];?>" class="form-control" placeholder="Ingrese el nombre del producto">
+                            <input type="text" name="nombre" value="<?php echo $productos["nombre"]; ?>" class="form-control" placeholder="Ingrese el nombre del producto">
                         </div>
                         <div class="form-group mb-3">
                             <label for="">Precio<span class="text-danger">*</span></label>
-                            <input type="precio" name="precio" value="<?php echo $productos["precio"];?>" class="form-control" placeholder="Ingrese el precio del producto">
+                            <input type="precio" name="precio" value="<?php echo $productos["precio"]; ?>" class="form-control" placeholder="Ingrese el precio del producto">
                         </div>
                         <div class="form-group mb-3">
                             <label for="">Marcas <span class="text-danger">*</span></label>
