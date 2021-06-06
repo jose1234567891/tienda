@@ -20,7 +20,7 @@ if (isset($_GET['id'])) {
 
     $id = (int) $_GET['id'];
 
-    $res = $mbd->prepare("SELECT p.id, p.sku, p.nombre, p.activo, p.precio, p.marca_id, m.nombre as marca, pt.nombre as producto_tipo, p.created_at, p.updated_at FROM productos as p INNER JOIN marcas as m ON p.marca_id = m.id INNER JOIN producto_tipos as pt ON p.producto_tipo_id = pt.id WHERE p.id = ?");
+    $res = $mbd->prepare("SELECT p.id, p.sku, p.nombre, p.activo, p.precio, p.marca_id, producto_tipo_id, m.nombre as marca, pt.nombre as producto_tipo, p.created_at, p.updated_at FROM productos as p INNER JOIN marcas as m ON p.marca_id = m.id INNER JOIN producto_tipos as pt ON p.producto_tipo_id = pt.id WHERE p.id = ?");
     $res->bindParam(1, $id);
     $res->execute();
     $productos = $res->fetch();
@@ -29,7 +29,27 @@ if (isset($_GET['id'])) {
     //validamos el formulario
     if (isset($_POST['confirm']) && $_POST['confirm'] == 1) {
 
-        // print_r($_POST);exit;
+        $activo = (int) $_POST["activo"];
+
+        if ($activo <= 0 ){
+            $msg = "Seleccione una opcion de estado";
+        }else{
+            //
+            //
+            $res = $mbd->prepare("UPDATE productos SET activo = ?, updated_at = now() WHERE id = ?");
+            $res->bindParam(1, $activo);
+            $res->bindParam(2, $id);
+            $res->execute();
+
+            $row = $res->rowCount();
+
+            if ($row) {
+                $_SESSION["seccess"] = "Estado modificado correctamente";
+                header("Location: ../productos/show.php" . $producto["id"]);
+            }
+        }
+
+        // print_r($_SESSION);exit;
         $sku = trim(strip_tags($_POST["sku"]));
         $nombre = trim(strip_tags($_POST["nombre"]));
         $precio = (int) $_POST["precio"];
@@ -143,7 +163,7 @@ if (isset($_GET['id'])) {
                         <div class="form-group mb-3">
                             <label for="">Producto tipos <span class="text-danger">*</span></label>
                             <select name="tipo" class="form-control">
-                                <option value="<?php echo $productos['producto_tipo_id'] ?>"><?php echo $productos['productos'] ?></option>
+                                <option value="<?php echo $productos['producto_tipo_id']?>">Seleccione...</option>
 
                                 <?php foreach ($producto_tipos as $tipo) : ?>
                                     <option value="<?php echo $tipo['id']; ?>">

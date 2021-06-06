@@ -78,7 +78,7 @@ if (isset($_GET["id"])) {
                 <?php include('../partials/mensajes.php'); ?>
 
                 <!-- listar los roles que estan registrados -->
-                <?php if ($producto) : ?>
+                <?php if ($producto): ?>
                     <table class="table table-hover">
                         <tr>
                             <th>Sku:</th>
@@ -92,12 +92,17 @@ if (isset($_GET["id"])) {
                             <th>Precio:</th>
                             <td><?php echo $producto["precio"]; ?></td>
                         </tr>
+                        <tr>
                         <th>Estado:</th>
                             <td>
-                                <?php if (!empty($productos) && $productos['activo'] == 1) : ?>
+                                <?php if(!empty($productos) && $productos['activo'] == 1): ?>
                                     Activo
-                                <?php else : ?>
+                                <?php else: ?>
                                     Inactivo
+                                <?php endif; ?>
+                                
+                                <?php if($producto): ?>
+                                    | <a href="../productos/edit.php?id=<?php echo $producto['id'] ?>">Modificar</a>
                                 <?php endif; ?>
                             </td>
                         </tr>
