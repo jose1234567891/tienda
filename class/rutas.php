@@ -11,3 +11,4 @@ define("PERSONAS", BASE_URL . "personas/");
 define("PRODUCTOS_TIPOS", BASE_URL . "producto_tipos/");
 define("USUARIOS", BASE_URL . "usuarios/");
 define("PRODUCTOS", BASE_URL . "productos/");
+define("IMAGENES", BASE_URL . "imagenes/");

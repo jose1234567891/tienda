@@ -11,7 +11,7 @@ require("../class/conexion.php");
 require("../class/rutas.php");
 
 //creamos la consulta a la tabla roles ordenado de manera ascendente para usar esos datos
-$res = $mbd->query("SELECT p.id, p.sku, p.nombre, p.precio, m.nombre as marca, pt.nombre as producto_tipo FROM productos as p INNER JOIN marcas as m ON p.marca_id = m.id INNER JOIN producto_tipos as pt ON p.producto_tipo_id = pt.id");
+$res = $mbd->query("SELECT p.id, p.sku, p.nombre, p.activo, p.precio, m.nombre as marca, pt.nombre as producto_tipo FROM productos as p INNER JOIN marcas as m ON p.marca_id = m.id INNER JOIN producto_tipos as pt ON p.producto_tipo_id = pt.id");
 $productos = $res->fetchall(); //pido a PDO que disponibilice todo los roles registrados
 
 // print_r($productos);exit;
@@ -77,6 +77,7 @@ $productos = $res->fetchall(); //pido a PDO que disponibilice todo los roles reg
                             <th>Precio</th>
                             <th>Marca</th>
                             <th>Tipo Producto</th>
+                            <th>Activo</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -97,6 +98,8 @@ $productos = $res->fetchall(); //pido a PDO que disponibilice todo los roles reg
                                     <?php echo $producto["marca"]; ?> </td>
                                 <td>
                                     <?php echo $producto["producto_tipo"]; ?> </td>
+                                <td>
+                                    <?php echo $producto["activo"]; ?> </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

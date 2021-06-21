@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 require("../class/conexion.php");
 require("../class/rutas.php");
 

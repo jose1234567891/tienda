@@ -1,6 +1,13 @@
 <?php
+//visualizar errores en php en tiempo ejecucion
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+session_start();
+
 require("../class/conexion.php");
 require("../class/rutas.php");
+
 
 //validar que los datos del formulario lleguen via post
 if (isset($_POST["confirm"]) && $_POST["confirm"] == 1) {

@@ -2,6 +2,8 @@
 require("../class/conexion.php");
 require("../class/rutas.php");
 
+session_start();
+
 //validar que el id de la comuna exista
 if (isset($_GET["id"])) {
     //guardamos este id en una variable

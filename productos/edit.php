@@ -44,8 +44,8 @@ if (isset($_GET['id'])) {
             $row = $res->rowCount();
 
             if ($row) {
-                $_SESSION["seccess"] = "Estado modificado correctamente";
-                header("Location: ../productos/show.php" . $producto["id"]);
+                $_SESSION["success"] = "Estado modificado correctamente";
+                header("Location: ../productos/show.php?id=" . $productos["id"]);
             }
         }
 

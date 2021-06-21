@@ -4,6 +4,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+session_start();
+
 //llamnada al archivo conexion para disponer de la base de datos  
 require("../class/conexion.php");
 require("../class/rutas.php");

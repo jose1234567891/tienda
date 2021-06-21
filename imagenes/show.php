@@ -5,7 +5,6 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 session_start();
-//print_r($_SESSION);exit;
 
 //llamnada al archivo conexion para disponer de la base de datos  
 require("../class/conexion.php");
@@ -18,19 +17,19 @@ if (isset($_GET["id"])) {
     //recuperer el dato que viene en la variable id
     $id = (int) $_GET["id"]; //transforma el dato GET a entero
 
-    // print_r($id);exit;
+    //print_r($id);exit;
 
-    //consultar si hay una persona con el id enviado por GET
-    $res = $mbd->prepare("SELECT p.id, p.sku, p.nombre, p.precio, p.activo, m.nombre as marca, pt.nombre as producto_tipo, p.created_at, p.updated_at FROM productos as p INNER JOIN marcas as m ON p.marca_id = m.id INNER JOIN producto_tipos as pt ON p.producto_tipo_id = pt.id WHERE p.id = ?");
+    //consultar si hay una marca con el id enviado por GET
+    $res = $mbd->prepare("SELECT i.id, i.titulo, i.imagen, i.descripcion, i.activo, i.portada, i.created_at, i.updated_at, p.nombre as producto, m.nombre as marca FROM imagenes as i INNER JOIN productos as p ON i.producto_id = p.id INNER JOIN marcas as m ON p.marca_id = m.id WHERE i.id = ?");
     $res->bindParam(1, $id);
     $res->execute();
-
-    $producto = $res->fetch();
-
-    //print_r($producto);exit;
+    $imagen = $res->fetch();
+    //print_r($imagen);exit;
 }
 
 ?>
+
+<?php if (isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] != 5): ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +39,7 @@ if (isset($_GET["id"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Productos</title>
+    <title>Imagenes</title>
 
     <!--Enlaces CDM de Bootstrap-->
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
@@ -59,58 +58,60 @@ if (isset($_GET["id"])) {
         <!-- seccion de contenido principal -->
         <section>
             <div class="col-md-6 offset-md-3">
-                <h1>Productos</h1>
-                <!-- mensaje de registro de la persona -->
+                <h2>Imagenes</h2>
+                <!-- mensaje de registro de marcas -->
                 <?php if (isset($_GET["m"]) &&  $_GET["m"] == "ok") : ?>
                     <div class="alert alert-success">
-                        El producto se ha modificado correctamente
+                        La marca se ha modificado correctamente
                     </div>
                 <?php endif; ?>
+                <!-- listar las marcas que estan registrados -->
+                <?php
+                if ($imagen) : ?>
 
-                <?php include('../partials/mensajes.php'); ?>
+                    <div class="col-m-4 text-center">
+                        <img src="<?php echo PRODUCTOS . 'img/' . $imagen["imagen"]; ?>" alt="" class="img-fluid " width="190" >
+                    </div>
 
-                <!-- listar los roles que estan registrados -->
-                <?php if ($producto): ?>
                     <table class="table table-hover">
                         <tr>
-                            <th>Sku:</th>
-                            <td><?php echo $producto['sku']; ?></td>
+                            <th>Titulo:</th>
+                            <td><?php echo $imagen["titulo"]; ?></td>
                         </tr>
                         <tr>
-                            <th>Nombre:</th>
-                            <td><?php echo $producto["nombre"]; ?></td>
-                        </tr>
-                        <tr>
-                            <th>Precio:</th>
-                            <td><?php echo $producto["precio"]; ?></td>
-                        </tr>
-                        <tr>
-                            <th>Estado:</th>
+                            <th>Activo:</th>
                             <td>
-                                <?php if (!empty($producto) && $producto['activo'] == 1) : ?>
-                                    Activo
-                                <?php else : ?>
-                                    Inactivo
-                                <?php endif; ?>
-
-                                <?php if ($producto) : ?>
-                                    | <a href="../productos/edit.php?id=<?php echo $producto['id'] ?>">Modificar</a>
-                                <?php endif; ?>
+                                <?php if($imagen["activo"] == 1): ?>
+                                    Si
+                                <?php else: ?>
+                                    No
+                                <?php endif;?>
                             </td>
                         </tr>
                         <tr>
-                            <th>Marca:</th>
-                            <td><?php echo $producto["marca"]; ?></td>
+                            <th>Portada:</th>
+                            <td>
+                                <?php if($imagen["portada"] == 1): ?>
+                                    Si
+                                <?php else: ?>
+                                    No
+                                <?php endif;?>
+                                <a href="editPortada.php?id=<?php echo $id ?>" class="btn btn-link btn-sm">Cambiar</a>
+                            </td>
                         </tr>
                         <tr>
-                            <th>Producto tipo:</th>
-                            <td><?php echo $producto["producto_tipo"]; ?></td>
+                            <th>Descripcion:</th>
+                            <td><?php echo $imagen["descripcion"]; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Marca:</th>
+                            <td><?php echo $imagen["marca"]; ?></td>
                         </tr>
                         <tr>
                             <th>Creado:</th>
                             <td>
                                 <?php
-                                $fecha = new DateTime($producto["created_at"]);
+                                $fecha = new DateTime($imagen["created_at"]);
                                 echo $fecha->format("d-m-y h:i:s");
                                 ?>
                             </td>
@@ -119,7 +120,7 @@ if (isset($_GET["id"])) {
                             <th>Actualizado:</th>
                             <td>
                                 <?php
-                                $fecha = new DateTime($producto["updated_at"]);
+                                $fecha = new DateTime($imagen["updated_at"]);
                                 echo $fecha->format("d-m-y h:i:s");
                                 ?>
                             </td>
@@ -127,11 +128,18 @@ if (isset($_GET["id"])) {
                     </table>
                     <p>
                         <a href="index.php" class="btn btn-link">Volver</a>
-                        <a href="edit.php?id=<?php echo $id ?>" class="btn btn-primary">Editar</a>
+                        <?php if($_SESSION['usuario_rol'] == 2): ?>
+                            <a href="edit.php?id=<?php echo $imagen["id"] ?>" class="btn btn-primary">Editar</a>
+                            <form action="delete.php" method="post">
+                                <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                <input type="hidden" name="confirm" value="1">
+                                <button type="submit" class="btn-warning">Eliminar</button>
+                            </form>
+                        <?php endif; ?>
                     </p>
                 <?php else : ?>
                     <p class="text-info">El dato solicitado no existe</p>
-                <?php endif; ?>
+                <?php endif ?>
             </div>
         </section>
         <!-- pie de pagina -->
@@ -142,3 +150,9 @@ if (isset($_GET["id"])) {
 </body>
 
 </html>
+<?php else: ?>
+    <script>
+        alert('Acceso indebido');
+        window.location = "<?php echo BASE_URL; ?>";
+    </script>
+<?php endif; ?>

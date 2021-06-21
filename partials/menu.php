@@ -16,25 +16,28 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contacto</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Administración
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="<?php echo COMUNAS; ?>">Comunas</a></li>
-                        <li><a class="dropdown-item" href="<?php echo REGIONES; ?>">Regiones</a></li>
-                        <li><a class="dropdown-item" href="<?php echo MARCAS; ?>">Marcas</a></li>
-                        <li><a class="dropdown-item" href="<?php echo ATRIBUTOS; ?>">Atributos</a></li>
-                        <li><a class="dropdown-item" href="<?php echo PRODUCTOS_TIPOS; ?>">Producto tipos</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="<?php echo PERSONAS; ?>">Personas</a></li>
-                        <li><a class="dropdown-item" href="<?php echo PRODUCTOS; ?>">Productos</a></li>
-                        <li><a class="dropdown-item" href="<?php echo ROLES; ?>">Roles</a></li>
-                        <li><a class="dropdown-item" href="#">Usuarios</a></li>
-                    </ul>
-                </li>
+                <?php if (isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] != 5): ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Administración
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="<?php echo COMUNAS; ?>">Comunas</a></li>
+                            <li><a class="dropdown-item" href="<?php echo REGIONES; ?>">Regiones</a></li>
+                            <li><a class="dropdown-item" href="<?php echo MARCAS; ?>">Marcas</a></li>
+                            <li><a class="dropdown-item" href="<?php echo ATRIBUTOS; ?>">Atributos</a></li>
+                            <li><a class="dropdown-item" href="<?php echo PRODUCTOS_TIPOS; ?>">Producto tipos</a></li>
+                            <li><a class="dropdown-item" href="<?php echo IMAGENES; ?>">Imagenes</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="<?php echo PERSONAS; ?>">Personas</a></li>
+                            <li><a class="dropdown-item" href="<?php echo PRODUCTOS; ?>">Productos</a></li>
+                            <li><a class="dropdown-item" href="<?php echo ROLES; ?>">Roles</a></li>
+                            <li><a class="dropdown-item" href="#">Usuarios</a></li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
                 <?php if (!isset($_SESSION["autenticado"])) : ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo USUARIOS . "login.php" ?>" tabindex="-1" aria-disabled="false">LogIn</a>

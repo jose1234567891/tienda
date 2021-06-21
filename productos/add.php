@@ -39,7 +39,7 @@ if (isset($_POST["confirm"]) && $_POST["confirm"] == 1) {
     $row = $res->rowCount();
 
     if ($row) {
-        $_SESSION['success'] = 'ok';
+        $_SESSION['success'] = 'Se ha registrado correctamente el producto';
         header('Location: index.php');
     }
 }
