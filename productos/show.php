@@ -66,12 +66,6 @@ if (isset($_GET["id"])) {
                 <div class="col-md-6 offset-md-3">
                     <h1>Productos</h1>
                     <!-- mensaje de registro de la persona -->
-                    <?php if (isset($_GET["m"]) &&  $_GET["m"] == "ok") : ?>
-                        <div class="alert alert-success">
-                            El producto se ha modificado correctamente
-                        </div>
-                    <?php endif; ?>
-
                     <?php include('../partials/mensajes.php'); ?>
 
                     <!-- listar los roles que estan registrados -->
@@ -152,16 +146,19 @@ if (isset($_GET["id"])) {
                             <th>Valor</th>
                             <th></th>
                         </tr>
-                        <?php foreach ($atributos as $atributo) : ?>
-                            <tr>
-                                <td><?php echo $atributo['nombre']; ?></td>
-                                <td><?php echo $atributo['valor']; ?></td>
-                                <td>
-                                    <a href="<?php echo ATRIBUTO_PRODUCTO . "edit.php?id=" . $atributo["id"]; ?>" class="btn btn-primary btn-sm">Editar</a>
-                                    <a href="<?php echo ATRIBUTO_PRODUCTO . "delete.php?id=" . $atributo["id"]; ?>" class="btn btn-warning btn-sm">Eliminar</a>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
+                            <?php foreach ($atributos as $atributo) : ?>
+                                <tr>
+                                    <td><?php echo $atributo['nombre']; ?></td>
+                                    <td><?php echo $atributo['valor']; ?></td>
+                                    <?php if ($_SESSION['usuario_rol'] == 2) : ?>
+                                        <td>
+                                            <a href="<?php echo ATRIBUTO_PRODUCTO . "edit.php?id=" . $atributo["id"]; ?>" class="btn btn-primary btn-sm">Editar</a>
+                                            <a href="<?php echo ATRIBUTO_PRODUCTO . "delete.php?id=" . $atributo["id"]; ?>" class="btn btn-warning btn-sm">Eliminar</a>
+                                        </td>
+                                    <?php endif; ?>
+                                </tr>
+                            <?php endforeach; ?>
+                        
                     </table>
                 </div>
             </section>

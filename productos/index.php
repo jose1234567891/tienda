@@ -50,24 +50,7 @@ $productos = $res->fetchall(); //pido a PDO que disponibilice todo los roles reg
             <div class="col-md-10 offset-md-1">
                 <h1>Productos</h1>
                 <!-- mensaje de registro de la persona -->
-                <?php if (isset($_GET["m"]) &&  $_GET["m"] == "ok") : ?>
-                    <div class="alert alert-success">
-                        La persona se ha registrado correctamente
-                    </div>
-                <?php endif; ?>
-
-                <?php if (isset($_GET["e"]) &&  $_GET["e"] == "ok") : ?>
-                    <div class="alert alert-success">
-                        La persona se ha eliminado correctamente
-                    </div>
-                <?php endif; ?>
-
-                <?php if (isset($_GET["error"]) &&  $_GET["error"] == "error") : ?>
-                    <div class="alert alert-danger">
-                        La la persona no se ha eliminado.. intente nuevamente
-                    </div>
-                <?php endif; ?>
-
+                <?php include("../partials/mensajes.php");  ?>
                 <!-- listar las personas que estan registrados -->
                 <table class="table table-hover">
                     <thead>
