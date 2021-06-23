@@ -4,6 +4,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+session_start();
+
 //llamnada al archivo conexion para disponer de la base de datos  
 require("../class/conexion.php");
 require("../class/rutas.php");
@@ -15,6 +17,8 @@ $marcas = $res->fetchall(); //pido a PDO que disponibilice todo las marcas regis
 //print_r($marcas);exit;
 
 ?>
+<?php if(isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] != 3): ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -85,7 +89,9 @@ $marcas = $res->fetchall(); //pido a PDO que disponibilice todo las marcas regis
                     </tbody>
                 </table>
                 <!-- lista de marca -->
+                <?php if($_SESSION['usuario_rol'] == 2): ?>
                 <a href="add.php" class="btn btn-success">Nueva marca</a>
+                <?php endif; ?>
             </div>
         </section>
 
@@ -97,3 +103,10 @@ $marcas = $res->fetchall(); //pido a PDO que disponibilice todo las marcas regis
 </body>
 
 </html>
+<?php else: ?>
+    <script>
+        alert('Acceso indebido');
+        window.location = "<?php echo BASE_URL; ?>";
+    </script>
+
+<?php endif; ?>

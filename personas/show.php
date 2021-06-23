@@ -40,6 +40,7 @@ if (isset($_GET["id"])) {
 }
 
 ?>
+<?php if(isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] != 3): ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -127,9 +128,10 @@ if (isset($_GET["id"])) {
                                 <?php else: ?>
                                     Inactivo
                                 <?php endif; ?>
-                                
-                                <?php if($usuario): ?>
-                                    | <a href="../usuarios/edit.php?id=<?php echo $usuario['id'] ?>">Modificar</a>
+                                <?php if($_SESSION['usuario_rol'] == 2): ?>
+                                    <?php if($usuario): ?>
+                                        | <a href="../usuarios/edit.php?id=<?php echo $usuario['id'] ?>">Modificar</a>
+                                    <?php endif; ?>
                                 <?php endif; ?>
                             </td>
                         </tr>
@@ -154,12 +156,14 @@ if (isset($_GET["id"])) {
                     </table>
                     <p>
                         <a href="index.php" class="btn btn-link">Volver</a>
-                        <a href="edit.php?id=<?php echo $id ?>" class="btn btn-primary">Editar</a>
-                        
-                        <?php if (!$usuario): ?>
-                            <a href="../usuarios/add.php?persona=<?php echo $id; ?>" class="btn btn-success">Agregar Password</a>
-                        <?php else: ?>
-                            <a href="../usuarios/editPassword.php?persona=<?php echo $id; ?>" class="btn btn-warning">Modificar Password</a>
+                        <?php if($_SESSION['usuario_rol'] == 2): ?>
+                            <a href="edit.php?id=<?php echo $id ?>" class="btn btn-primary">Editar</a>
+                            
+                            <?php if (!$usuario): ?>
+                                <a href="../usuarios/add.php?persona=<?php echo $id; ?>" class="btn btn-success">Agregar Password</a>
+                            <?php else: ?>
+                                <a href="../usuarios/editPassword.php?persona=<?php echo $id; ?>" class="btn btn-warning">Modificar Password</a>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </p>
                 <?php else: ?>
@@ -175,3 +179,10 @@ if (isset($_GET["id"])) {
 </body>
 
 </html>
+<?php else: ?>
+    <script>
+        alert('Acceso indebido');
+        window.location = "<?php echo BASE_URL; ?>";
+    </script>
+
+<?php endif; ?>

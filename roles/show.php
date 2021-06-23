@@ -29,7 +29,7 @@ if (isset($_GET["id"])) {
 
 ?>
 
-<?php if (isset($_SESSION["autenticado"]) && $_SESSION["usuario_rol"] == 2) : ?>
+<?php if (isset($_SESSION["autenticado"]) && $_SESSION["usuario_rol"] != 3) : ?>
 
     <!DOCTYPE html>
     <html lang="en">
@@ -94,8 +94,10 @@ if (isset($_GET["id"])) {
                         </table>
                         <p>
                             <a href="index.php" class="btn btn-link">Volver</a>
+                            <?php if($_SESSION['usuario_rol'] == 2): ?>
                             <a href="edit.php?id=<?php echo $rol["id"] ?>" class="btn btn-primary">Editar</a>
                             <a href="delete.php?id=<?php echo $rol["id"] ?>" class="btn btn-warning">Eliminar</a>
+                            <?php endif; ?>
                         </p>
                     <?php else : ?>
                         <p class="text-info">El dato solicitado no existe</p>

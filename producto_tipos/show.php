@@ -4,6 +4,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+session_start();
+
 //llamnada al archivo conexion para disponer de la base de datos  
 require("../class/conexion.php");
 require("../class/rutas.php");
@@ -26,6 +28,7 @@ if (isset($_GET["id"])) {
 }
 
 ?>
+<?php if(isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] != 3): ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -75,7 +78,9 @@ if (isset($_GET["id"])) {
                         </tr>
                     </table>
                     <p>
+                        <?php if($_SESSION['usuario_rol'] == 2): ?>
                         <a href="edit.php?id=<?php echo $id; ?>" class="btn btn-primary">Editar</a>
+                        <?php endif; ?>
                         <a href="index.php" class="btn btn-link">Volver</a>
                     </p>
                 <?php else : ?>
@@ -91,3 +96,10 @@ if (isset($_GET["id"])) {
 </body>
 
 </html>
+<?php else: ?>
+    <script>
+        alert('Acceso indebido');
+        window.location = "<?php echo BASE_URL; ?>";
+    </script>
+
+<?php endif; ?>

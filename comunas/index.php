@@ -4,6 +4,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+session_start();
+
 //llamnada al archivo conexion para disponer de la base de datos  
 require("../class/conexion.php");
 require("../class/rutas.php");
@@ -17,7 +19,7 @@ $comunas = $res->fetchall(); //pido a PDO que disponibilice todo las comunas reg
 // echo"</pre>";
 
 ?>
-
+<?php if(isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] != 3): ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -90,7 +92,9 @@ $comunas = $res->fetchall(); //pido a PDO que disponibilice todo las comunas reg
                     </tbody>
                 </table>
                 <!-- lista de la comuna -->
+                <?php if($_SESSION['usuario_rol'] == 2): ?>
                 <a href="add.php" class="btn btn-success">Nueva comuna</a>
+                <?php endif; ?>
             </div>
         </section>
 
@@ -102,3 +106,10 @@ $comunas = $res->fetchall(); //pido a PDO que disponibilice todo las comunas reg
 </body>
 
 </html>
+<?php else: ?>
+    <script>
+        alert('Acceso indebido');
+        window.location = "<?php echo BASE_URL; ?>";
+    </script>
+
+<?php endif; ?>

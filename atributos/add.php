@@ -3,6 +3,7 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
 session_start();
 
 require("../class/conexion.php");
@@ -42,14 +43,15 @@ if (isset($_POST["confirm"]) && $_POST["confirm"] == 1) {
             //print_r($row);exit;
 
             if ($row) {
-                $msg = "ok";
-                header("Location: index.php?m=" . $msg);
+                $_SESSION['success'] = 'El atributo se ha registrado correctamente';
+                header("Location: index.php");
             }
         }
     }
 }
 
 ?>
+<?php if(isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] == 2): ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -113,3 +115,9 @@ if (isset($_POST["confirm"]) && $_POST["confirm"] == 1) {
 </body>
 
 </html>
+<?php else: ?>
+    <script>
+        alert('Acceso indebido');
+        window.location = "<?php echo BASE_URL; ?>";
+    </script>
+<?php endif; ?>

@@ -16,7 +16,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contacto</a>
                 </li>
-                <?php if (isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] != 5): ?>
+                <?php if (isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] != 3): ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Administración

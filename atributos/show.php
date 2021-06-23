@@ -28,6 +28,7 @@ if (isset($_GET["id"])) {
 }
 
 ?>
+<?php if(isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] != 3): ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -78,7 +79,9 @@ if (isset($_GET["id"])) {
                     </table>
                     <p>
                         <a href="index.php" class="btn btn-link">Volver</a>
+                        <?php if($_SESSION['usuario_rol'] == 2): ?>
                         <a href="edit.php?id=<?php echo $atributo["id"] ?>" class="btn btn-primary">Editar</a>
+                        <?php endif; ?>
                     </p>
                 <?php else : ?>
                     <p class="text-info">El dato solicitado no existe</p>
@@ -93,3 +96,10 @@ if (isset($_GET["id"])) {
 </body>
 
 </html>
+<?php else: ?>
+    <script>
+        alert('Acceso indebido');
+        window.location = "<?php echo BASE_URL; ?>";
+    </script>
+
+<?php endif; ?>

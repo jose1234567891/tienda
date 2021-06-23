@@ -39,15 +39,16 @@ if (isset($_GET["id"])) {
 
             $row = $res->rowCount(); //recuperamos el numero de filas afectadas por la consulta
 
-            if ($row) {
-                $msg = "ok";
-                header('Location: show.php?id=' . $id . '&m=' . $msg);
+            if($row){
+                $_SESSION['success'] = 'El autributo se ha registrado correctamente';
+                header('Location: Show.php?id=' . $id);
             }
         }
     }
 }
 
 ?>
+<?php if(isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] == 2): ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -112,3 +113,10 @@ if (isset($_GET["id"])) {
 </body>
 
 </html>
+<?php else: ?>
+    <script>
+        alert('Acceso indebido');
+        window.location = "<?php echo BASE_URL; ?>";
+    </script>
+
+<?php endif; ?>

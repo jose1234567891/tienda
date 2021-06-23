@@ -17,6 +17,8 @@ $atributos = $res->fetchall(); //pido a PDO que disponibilice todos los atributo
 //print_r($atributos);exit;
 
 ?>
+<?php if(isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] != 3): ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -87,7 +89,9 @@ $atributos = $res->fetchall(); //pido a PDO que disponibilice todos los atributo
                     </tbody>
                 </table>
                 <!-- lista de marca -->
+                <?php if($_SESSION['usuario_rol'] == 2): ?>
                 <a href="add.php" class="btn btn-success">Nuevo atributo</a>
+                <?php endif; ?>
             </div>
         </section>
 
@@ -99,3 +103,10 @@ $atributos = $res->fetchall(); //pido a PDO que disponibilice todos los atributo
 </body>
 
 </html>
+<?php else: ?>
+    <script>
+        alert('Acceso indebido');
+        window.location = "<?php echo BASE_URL; ?>";
+    </script>
+
+<?php endif; ?>

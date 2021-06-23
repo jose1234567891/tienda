@@ -17,7 +17,7 @@ $roles = $res->fetchall(); //pido a PDO que disponibilice todo los roles registr
 //print_r($roles);
 
 ?>
-<?php if ($_SESSION["autenticado"] && $_SESSION["usuario_rol"] == 2) : ?>
+<?php if ($_SESSION["autenticado"] && $_SESSION["usuario_rol"] != 3) : ?>
 
     <!DOCTYPE html>
     <html lang="en">
@@ -72,8 +72,10 @@ $roles = $res->fetchall(); //pido a PDO que disponibilice todo los roles registr
                             <?php endforeach; ?>
                         </tbody>
                     </table>
+                    <?php if($_SESSION['usuario_rol'] == 2): ?>
                     <!-- lista de roles -->
                     <a href="add.php" class="btn btn-success">Nuevo Rol</a>
+                    <?php endif; ?>
                 </div>
             </section>
 

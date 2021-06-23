@@ -17,6 +17,7 @@ $productos = $res->fetchall(); //pido a PDO que disponibilice todo los roles reg
 // print_r($productos);exit;
 
 ?>
+<?php if(isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] != 3): ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -104,7 +105,9 @@ $productos = $res->fetchall(); //pido a PDO que disponibilice todo los roles reg
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                <?php if($_SESSION['usuario_rol'] == 2): ?>
                 <a href="add.php" class="btn btn-success">Nuevo producto</a>
+                <?php endif; ?>
             </div>
         </section>
 
@@ -116,3 +119,10 @@ $productos = $res->fetchall(); //pido a PDO que disponibilice todo los roles reg
 </body>
 
 </html>
+<?php else: ?>
+    <script>
+        alert('Acceso indebido');
+        window.location = "<?php echo BASE_URL; ?>";
+    </script>
+
+<?php endif; ?>

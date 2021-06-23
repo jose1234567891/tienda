@@ -19,7 +19,7 @@ $personas = $res->fetchall(); //pido a PDO que disponibilice todo los roles regi
 // echo"</pre>";
 
 ?>
-
+<?php if(isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] != 3): ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -98,7 +98,9 @@ $personas = $res->fetchall(); //pido a PDO que disponibilice todo los roles regi
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                <?php if($_SESSION['usuario_rol'] == 2): ?>
                 <a href="add.php" class="btn btn-success">Nueva persona</a>
+                <?php endif; ?>
             </div>
         </section>
 
@@ -110,3 +112,10 @@ $personas = $res->fetchall(); //pido a PDO que disponibilice todo los roles regi
 </body>
 
 </html>
+<?php else: ?>
+    <script>
+        alert('Acceso indebido');
+        window.location = "<?php echo BASE_URL; ?>";
+    </script>
+
+<?php endif; ?>

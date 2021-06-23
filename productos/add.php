@@ -45,6 +45,7 @@ if (isset($_POST["confirm"]) && $_POST["confirm"] == 1) {
 }
 
 ?>
+<?php if(isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] == 2): ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -139,3 +140,10 @@ if (isset($_POST["confirm"]) && $_POST["confirm"] == 1) {
 </body>
 
 </html>
+<?php else: ?>
+    <script>
+        alert('Acceso indebido');
+        window.location = "<?php echo BASE_URL; ?>";
+    </script>
+
+<?php endif; ?>
