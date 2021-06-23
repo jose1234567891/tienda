@@ -189,9 +189,10 @@ if (isset($_GET['id'])) {
                             </select>
                         </div>
                         <div class="form-group mb-3">
+                            <a href="index.php" class="btn btn-dark">Volver</a>
                             <input type="hidden" name="confirm" value="1">
                             <button type="submit" class="btn btn-primary">Guardar</button>
-                            <a href="index.php" class="btn btn-link">Volver</a>
+                            
                         </div>
                     </form>
                 <?php else : ?>

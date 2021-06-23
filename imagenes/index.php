@@ -80,13 +80,13 @@ $imagenes = $res->fetchall(); //pido a PDO que disponibilice todo las marcas reg
                                     <td><?php echo $imagen['marca']; ?></td>
                                 </tr>
                             </table>
-                            <a href="show.php?id=<?php echo $imagen['id'] ?>" class="btn btn-link">Ver Detalles</a>
+                            <a href="show.php?id=<?php echo $imagen['id'] ?>" class="btn btn-info  mt-2">Ver Detalles</a>
                         </div>
 
                     <?php endforeach; ?>
                 </div>
                 <?php if ($_SESSION['usuario_rol'] == 2) : ?>
-                    <a href="add.php" class="btn btn-primary">Nueva Imagen</a>
+                    <a href="add.php" class="btn btn-primary  mt-3">Nueva Imagen</a>
                 <?php endif; ?>
             </div>
 

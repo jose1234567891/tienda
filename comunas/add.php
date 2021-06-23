@@ -94,6 +94,7 @@ if (isset($_GET["id"])) {
                             <input type="text" name="nombre" class="form-control" placeholder="Ingrese el Nombre de la comuna">
                         </div>
                         <div class="form-group mb-3">
+                            <a href="../comunas/index.php" class="btn btn-dark">Volver</a>
                             <input type="hidden" name="confirm" value="1">
                             <button type="submit" class="btn btn-primary">Guardar</button>
                         </div>

@@ -81,7 +81,7 @@ if (isset($_GET["id"])) {
                             </tr>
                             <tr>
                                 <th>Precio:</th>
-                                <td><?php echo $producto["precio"]; ?></td>
+                                <td>$ <?php echo number_format($producto['precio'],0,',','.'); ?>  </td>
                             </tr>
                             <tr>
                                 <th>Estado:</th>
@@ -127,10 +127,10 @@ if (isset($_GET["id"])) {
                             </tr>
                         </table>
                         <p>
-                            <a href="index.php" class="btn btn-link">Volver</a>
+                            <a href="index.php" class="btn btn-dark">Volver</a>
                             <?php if ($_SESSION['usuario_rol'] == 2) : ?>
                                 <a href="edit.php?id=<?php echo $id ?>" class="btn btn-primary">Editar</a>
-                                <a href="../atributo_producto/add.php?id_producto=<?php echo $id ?>" class="btn btn-secundary">Agregar atributo</a>
+                                <a href="../atributo_producto/add.php?id_producto=<?php echo $id ?>" class="btn btn-secondary">Agregar atributo</a>
                                 <a href="../imagenes/add.php?id_producto=<?php echo $id; ?>" class="btn btn-success">Agregar Imagen</a>
                             <?php endif; ?>
                         </p>

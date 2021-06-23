@@ -92,7 +92,7 @@ if (isset($_GET["id"])) {
                             </tr>
                         </table>
                         <p>
-                            <a href="index.php" class="btn btn-link">Volver</a>
+                            <a href="index.php" class="btn btn-dark">Volver</a>
                             <?php if ($_SESSION['usuario_rol'] == 2) : ?>
                                 <a href="edit.php?id=<?php echo $marca["id"] ?>" class="btn btn-primary">Editar</a>
                                 <a href="delete.php?id=<?php echo $marca["id"] ?>" class="btn btn-warning">Eliminar</a>

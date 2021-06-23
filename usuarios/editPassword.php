@@ -104,9 +104,10 @@
                                   <input type="password" name="reclave" class="form-control" placeholder="Confirme el password del usuario">
                               </div>
                               <div class="form-group mb-3">
+                                  <a href="../personas/show.php?id=<?php echo $id_persona; ?>" class="btn btn-dark">Volver</a>
                                   <input type="hidden" name="confirm" value="1">
                                   <button type="submit" class="btn btn-primary">Guardar</button>
-                                  <a href="../personas/show.php?id=<?php echo $id_persona; ?>" class="btn btn-link">Volver</a>
+
                               </div>
                           </form>
                       <?php else : ?>

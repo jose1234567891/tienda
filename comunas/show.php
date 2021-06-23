@@ -93,10 +93,10 @@ if (isset($_GET["id"])) {
                         </tr>
                     </table>
                     <p>
+                        <a href="../comunas/index.php" class="btn btn-dark">Volver</a>
                         <?php if ($_SESSION['usuario_rol'] == 2) : ?>
                             <a href="edit.php?id=<?php echo $id; ?>" class="btn btn-primary">Editar</a>
                         <?php endif; ?>
-                        <a href="index.php" class="btn btn-link">Volver</a>
                     </p>
                 <?php else : ?>
                     <p class="text-info">El dato no existe</p>

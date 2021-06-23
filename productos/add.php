@@ -122,9 +122,10 @@ if (isset($_POST["confirm"]) && $_POST["confirm"] == 1) {
                         </select>
                     </div>
                     <div class="form-group mb-3">
+                        <a href="index.php" class="btn btn-dark">Volver</a>
                         <input type="hidden" name="confirm" value="1">
                         <button type="submit" class="btn btn-primary">Guardar</button>
-                        <a href="index.php" class="btn btn-link">Volver</a>
+                       
                     </div>
                 </form>
             </div>

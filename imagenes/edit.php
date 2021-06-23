@@ -138,9 +138,10 @@
                     </div>
                     
                     <div class="form-group">
+                        <a href="show.php?id=<?php echo $id; ?>" class="btn btn-dark">Volver</a>
                         <input type="hidden" name="confirm" value="1">
                         <button type="submit" class="btn btn-primary">Enviar</button>
-                        <a href="show.php?id=<?php echo $id; ?>" class="btn btn-link">Volver</a>
+                        
                     </div>
                 </form>
             <?php else: ?>

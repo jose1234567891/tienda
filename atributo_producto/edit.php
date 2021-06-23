@@ -94,9 +94,10 @@ if (isset($_GET["id"])) {
                         <input type="text" name="valor" value="<?php echo $atrib_prod["valor"]; ?>" class="form-control" placeholder="Ingrese el valor del atributo">
                     </div>
                     <div class="form-group mb-3">
+                        <a href="../productos/show.php?id=<?php echo $atrib_prod["id"]; ?>" class="btn btn-dark">Volver</a>
                         <input type="hidden" name="confirm" value="1">
                         <button type="submit" class="btn btn-primary">Editar</button>
-                        <a href="../productos/show.php?id=<?php echo $atrib_prod["id"]; ?>" class="btn btn-link">Volver</a>
+                        
                     </div>
 
                 </form>
