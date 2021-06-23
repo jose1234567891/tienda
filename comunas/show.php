@@ -61,11 +61,7 @@ if (isset($_GET["id"])) {
             <div class="col-md-6 offset-md-3">
                 <h1>Comunas</h1>
                 <!-- mensaje de registro de las comunas -->
-                <?php if (isset($_GET["m"]) &&  $_GET["m"] == "ok") : ?>
-                    <div class="alert alert-success">
-                        La comuna se ha modificado correctamente
-                    </div>
-                <?php endif; ?>
+                <?php include("../partials/mensajes.php");  ?>
 
                 <?php if ($comuna) : ?>
                     <table class="table table-hover">
@@ -97,8 +93,8 @@ if (isset($_GET["id"])) {
                         </tr>
                     </table>
                     <p>
-                        <?php if($_SESSION['usuario_rol'] == 2): ?>
-                        <a href="edit.php?id=<?php echo $id; ?>" class="btn btn-primary">Editar</a>
+                        <?php if ($_SESSION['usuario_rol'] == 2) : ?>
+                            <a href="edit.php?id=<?php echo $id; ?>" class="btn btn-primary">Editar</a>
                         <?php endif; ?>
                         <a href="index.php" class="btn btn-link">Volver</a>
                     </p>

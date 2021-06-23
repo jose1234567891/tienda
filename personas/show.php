@@ -71,12 +71,6 @@ if (isset($_GET["id"])) {
             <div class="col-md-6 offset-md-3">
                 <h1>Personas</h1>
                 <!-- mensaje de registro de la persona -->
-                <?php if (isset($_GET["m"]) &&  $_GET["m"] == "ok") : ?>
-                    <div class="alert alert-success">
-                        La persona se ha modificado correctamente
-                    </div>
-                <?php endif; ?>
-
                 <?php include('../partials/mensajes.php'); ?>
              
                 <!-- listar los roles que estan registrados -->

@@ -29,11 +29,11 @@ if (isset($_GET["id"])) {
         $row = $res->rowCount(); //recuperamos el numero de la fila afectada (=1)
 
         if ($row) {
-            $msg = "ok";
-            header("Location: index.php?e=" . $msg);
-        } else {
-            $error = "error";
-            header("Location: index.php?error=" . $error);
+            $_SESSION["success"] = "La imagen se ha eliminado correctamente";
+            header('Location: index.php');
         }
+    } else {
+        $_SESSION["danger"] = "La imagen no se ha podido eliminar... intente nuevamente";
+        header('Location: show.php?id=' . $id);
     }
 }

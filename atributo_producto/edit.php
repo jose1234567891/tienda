@@ -19,29 +19,29 @@ if (isset($_GET["id"])) {
     // print_r($id);exit;
 
     //consultar si hay los atributos con el id enviado por GET
-    $res = $mbd->prepare("SELECT id, nombre FROM atributos WHERE id = ?");
+    $res = $mbd->prepare("SELECT tp.id, tp.valor, tp.producto_id, tp.atributo_id, a.nombre FROM atributo_producto tp INNER JOIN atributos a ON tp.atributo_id = a.id WHERE tp.id = ?");
     $res->bindParam(1, $id);
     $res->execute();
-    $atributo = $res->fetch();
+    $atrib_prod = $res->fetch();
 
     //validador formulario
     if (isset($_POST["confirm"]) && $_POST["confirm"] == 1) {
-        $nombre = trim(strip_tags($_POST["nombre"]));
+        $valor = trim(strip_tags($_POST["valor"]));
 
-        if (!$nombre) {
-            $msg = "Debe ingresar un atributo";
+        if (!$valor) {
+            $msg = "Debe ingresar un valor del atributo";
         } else {
             //procedemos a actualizar el dato ingresado por el usuario en la tabla de atributos
-            $res = $mbd->prepare("UPDATE atributos  SET nombre = ? WHERE id = ?");
-            $res->bindParam(1, $nombre);
+            $res = $mbd->prepare("UPDATE atributo_producto  SET valor = ? WHERE id = ?");
+            $res->bindParam(1, $valor);
             $res->bindParam(2, $id);
             $res->execute();
 
             $row = $res->rowCount(); //recuperamos el numero de filas afectadas por la consulta
 
             if ($row) {
-                $_SESSION['success'] = 'El atributo se ha registrado correctamente';
-                header('Location: show.php?id=' . $id);
+                $_SESSION['success'] = 'El valor del atributo se ha modificado correctamente';
+                header('Location: ../productos/show.php?id=' . $atrib_prod["producto_id"]);
             }
         }
     }
@@ -58,7 +58,7 @@ if (isset($_GET["id"])) {
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Atributos</title>
+        <title>Atributos-Producto</title>
 
         <!--Enlaces CDM de Bootstrap-->
         <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
@@ -87,16 +87,16 @@ if (isset($_GET["id"])) {
             <?php endif; ?>
             <!-- listar los atributos que estan registrados -->
             <?php
-            if ($atributo) : ?>
+            if ($atrib_prod) : ?>
                 <form action="" method="post">
                     <div class="form-group mb-3">
-                        <label for="">atributo <span class="text-danger">*</span></label>
-                        <input type="text" name="nombre" value="<?php echo $atributo["nombre"]; ?>" class="form-control" placeholder="Ingrese el un atributo">
+                        <label for="valor">Valor <span class="text-danger">*</span></label>
+                        <input type="text" name="valor" value="<?php echo $atrib_prod["valor"]; ?>" class="form-control" placeholder="Ingrese el valor del atributo">
                     </div>
                     <div class="form-group mb-3">
                         <input type="hidden" name="confirm" value="1">
                         <button type="submit" class="btn btn-primary">Editar</button>
-                        <a href="show.php?id=<?php echo $atributo["id"]; ?>" class="btn btn-link">Volver</a>
+                        <a href="../productos/show.php?id=<?php echo $atrib_prod["id"]; ?>" class="btn btn-link">Volver</a>
                     </div>
 
                 </form>

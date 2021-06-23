@@ -17,93 +17,76 @@ $marcas = $res->fetchall(); //pido a PDO que disponibilice todo las marcas regis
 //print_r($marcas);exit;
 
 ?>
-<?php if(isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] != 3): ?>
+<?php if (isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] != 3) : ?>
 
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Marcas</title>
+        <title>Marcas</title>
 
-    <!--Enlaces CDM de Bootstrap-->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        <!--Enlaces CDM de Bootstrap-->
+        <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script> -->
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <script src="../js/bootstrap.min.js"></script>
-</head>
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <script src="../js/bootstrap.min.js"></script>
+    </head>
 
-<body>
+    <body>
 
-    <div class="container">
-        <!-- Seccion de cabecera del sitio  -->
-        <header>
-            <!-- Navegador principal -->
-            <?php include("../partials/menu.php"); ?>
-        </header>
+        <div class="container">
+            <!-- Seccion de cabecera del sitio  -->
+            <header>
+                <!-- Navegador principal -->
+                <?php include("../partials/menu.php"); ?>
+            </header>
 
-        <!-- seccion de contenido principal -->
-        <section>
-            <div class="col-md-6 offset-md-3">
-                <h1>Marcas</h1>
-                <!-- mensaje de registro de marca -->
-                <?php if (isset($_GET["m"]) &&  $_GET["m"] == "ok") : ?>
-                    <div class="alert alert-success">
-                        La marca se ha registrado correctamente
-                    </div>
-                <?php endif; ?>
-
-                <?php if (isset($_GET["e"]) &&  $_GET["e"] == "ok") : ?>
-                    <div class="alert alert-success">
-                        La marca se ha eliminado correctamente
-                    </div>
-                <?php endif; ?>
-
-                <?php if (isset($_GET["error"]) &&  $_GET["error"] == "error") : ?>
-                    <div class="alert alert-danger">
-                        La marca no se ha eliminado.. intente nuevamente
-                    </div>
-                <?php endif; ?>
-
-                <!-- listar las marcas que estan registrados -->
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Marca</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($marcas as $marca) : ?>
+            <!-- seccion de contenido principal -->
+            <section>
+                <div class="col-md-6 offset-md-3">
+                    <h1>Marcas</h1>
+                    <!-- mensaje de registro de marca -->
+                    <?php include("../partials/mensajes.php");  ?>
+                    <!-- listar las marcas que estan registrados -->
+                    <table class="table table-hover">
+                        <thead>
                             <tr>
-                                <td> <?php echo $marca["id"]; ?> </td>
-                                <td>
-                                    <a href="show.php?id=<?php echo $marca["id"]; ?>"><?php echo $marca["nombre"]; ?>
-                                    </a>
-                                </td>
+                                <th>Id</th>
+                                <th>Marca</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-                <!-- lista de marca -->
-                <?php if($_SESSION['usuario_rol'] == 2): ?>
-                <a href="add.php" class="btn btn-success">Nueva marca</a>
-                <?php endif; ?>
-            </div>
-        </section>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($marcas as $marca) : ?>
+                                <tr>
+                                    <td> <?php echo $marca["id"]; ?> </td>
+                                    <td>
+                                        <a href="show.php?id=<?php echo $marca["id"]; ?>"><?php echo $marca["nombre"]; ?>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <!-- lista de marca -->
+                    <?php if ($_SESSION['usuario_rol'] == 2) : ?>
+                        <a href="add.php" class="btn btn-success">Nueva marca</a>
+                    <?php endif; ?>
+                </div>
+            </section>
 
-        <!-- pie de pagina -->
-        <footer>
-            footer
-        </footer>
-    </div>
-</body>
+            <!-- pie de pagina -->
+            <footer>
+                footer
+            </footer>
+        </div>
+    </body>
 
-</html>
-<?php else: ?>
+    </html>
+<?php else : ?>
     <script>
         alert('Acceso indebido');
         window.location = "<?php echo BASE_URL; ?>";

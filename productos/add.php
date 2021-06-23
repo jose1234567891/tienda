@@ -28,7 +28,7 @@ if (isset($_POST["confirm"]) && $_POST["confirm"] == 1) {
 
     //Ingresamos los productos
     //procedemos a registrar los datos de los productos
-    $res = $mbd->prepare("INSERT INTO productos VALUES(null, ?, ?, ?, 1, ?, ?, now(), now())");
+    $res = $mbd->prepare("INSERT INTO productos VALUES(null, ?, ?, ?, 2, ?, ?, now(), now())");
     $res->bindParam(1, $sku);
     $res->bindParam(2, $nombre);
     $res->bindParam(3, $precio);
